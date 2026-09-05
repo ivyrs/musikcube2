@@ -97,10 +97,28 @@ namespace musik { namespace core { namespace sdk {
         public:
             virtual ~TSchema() {
                 for (auto it : this->entries) {
+                    FreeString(it->name);
+
+                    /* it->type tells us the real allocated type; deleting
+                    through the wrong pointer type is a new-delete-type-mismatch
+                    (each *Entry struct is a different size than the others). */
                     switch (it->type) {
+                        case Type::Bool:
+                            delete reinterpret_cast<BoolEntry*>(it);
+                            break;
+
+                        case Type::Int:
+                            delete reinterpret_cast<IntEntry*>(it);
+                            break;
+
+                        case Type::Double:
+                            delete reinterpret_cast<DoubleEntry*>(it);
+                            break;
+
                         case Type::String: {
                             StringEntry* entry = reinterpret_cast<StringEntry*>(it);
                             FreeString(entry->defaultValue);
+                            delete entry;
                             break;
                         }
 
@@ -108,15 +126,10 @@ namespace musik { namespace core { namespace sdk {
                             EnumEntry* entry = reinterpret_cast<EnumEntry*>(it);
                             FreeString(entry->defaultValue);
                             FreeStringList(entry->values, entry->count);
+                            delete entry;
                             break;
                         }
-
-                        default:
-                            break;
                     }
-
-                    FreeString(it->name);
-                    delete it;
                 }
             }
 

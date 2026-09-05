@@ -122,6 +122,12 @@ static bool parseHeader(std::string raw, std::string& key, std::string& value) {
     if (splitAt != std::string::npos) {
         key = str::Trim(raw.substr(0, splitAt));
         value = str::Trim(raw.substr(splitAt + 1));
+
+        /* header names are case-insensitive (RFC 7230/RFC 9113); HTTP/2
+        servers send them lowercased, HTTP/1.1 servers vary. normalize so
+        the comparisons below work regardless of the negotiated protocol. */
+        std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+
         return true;
     }
 
@@ -563,10 +569,10 @@ size_t HttpDataStream::CurlReadHeaderCallback(char *buffer, size_t size, size_t 
 
     std::string key, value;
     if (parseHeader(header, key, value)) {
-        if (key == "Content-Length") {
+        if (key == "content-length") {
             stream->length = std::atoi(value.c_str());
         }
-        else if (key == "Content-Type") {
+        else if (key == "content-type") {
             if (!stream->type.size()) {
                 stream->type = value;
             }

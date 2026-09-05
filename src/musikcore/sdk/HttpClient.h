@@ -44,6 +44,8 @@
 #include <mutex>
 #include <unordered_map>
 #include <set>
+#include <memory>
+#include <stdexcept>
 #include "constants.h"
 
 namespace musik { namespace core { namespace sdk {
@@ -260,8 +262,13 @@ namespace musik { namespace core { namespace sdk {
         curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 3000);
-        curl_easy_setopt(curl, CURLOPT_LOW_SPEED_TIME, 7500);
+        /* CURLOPT_CONNECTTIMEOUT and CURLOPT_LOW_SPEED_TIME are both in
+        seconds, not milliseconds -- these values were clearly chosen assuming
+        milliseconds (3000ms connect timeout, 7500ms stall timeout), which
+        made a dropped connection hang for ~50 minutes/~2 hours respectively
+        instead of failing promptly. */
+        curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT_MS, 3000);
+        curl_easy_setopt(curl, CURLOPT_LOW_SPEED_TIME, 8);
         curl_easy_setopt(curl, CURLOPT_LOW_SPEED_LIMIT, 500);
 
         if (this->decoratorCb) {

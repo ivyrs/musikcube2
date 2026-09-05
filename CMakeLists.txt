@@ -135,6 +135,8 @@ add_plugin("src/plugins/mpris" "mpris")
 add_plugin("src/plugins/server" "server")
 # streams
 add_plugin("src/plugins/httpdatastream" "httpdatastream")
+# sources
+add_plugin("src/plugins/subsonicsource" "subsonicsource")
 # decoders
 add_plugin("src/plugins/ffmpegdecoder" "ffmpegdecoder")
 add_plugin("src/plugins/gmedecoder" "gmedecoder")

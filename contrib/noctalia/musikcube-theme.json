@@ -1,0 +1,55 @@
+{
+  "name": "noctalia",
+  "schemaVersion": 1,
+  "colors": {
+    "background": { "hex": "{{colors.background.default.hex}}" },
+    "foreground": { "hex": "{{colors.on_background.default.hex}}" },
+
+    "frame_focused": { "hex": "{{colors.primary.default.hex}}" },
+    "frame_important": { "hex": "{{colors.secondary.default.hex}}" },
+
+    "text_focused": { "hex": "{{colors.primary.default.hex}}" },
+    "text_active": { "hex": "{{colors.tertiary.default.hex}}" },
+    "text_disabled": { "hex": "{{colors.outline_variant.default.hex}}" },
+    "text_hidden": { "hex": "{{colors.surface_variant.default.hex}}" },
+    "text_warning": { "hex": "{{colors.secondary_container.default.hex}}" },
+    "text_error": { "hex": "{{colors.error.default.hex}}" },
+
+    "overlay_background": { "hex": "{{colors.surface_container_high.default.hex}}" },
+    "overlay_foreground": { "hex": "{{colors.on_surface.default.hex}}" },
+    "overlay_border": { "hex": "{{colors.outline.default.hex}}" },
+    "overlay_focused_border": { "hex": "{{colors.primary.default.hex}}" },
+    "overlay_focused_text": { "hex": "{{colors.primary.default.hex}}" },
+
+    "shortcuts_background": { "hex": "{{colors.surface_container_high.default.hex}}" },
+    "shortcuts_foreground": { "hex": "{{colors.on_surface.default.hex}}" },
+    "shortcuts_background_focused": { "hex": "{{colors.primary.default.hex}}" },
+    "shortcuts_foreground_focused": { "hex": "{{colors.on_primary.default.hex}}" },
+
+    "button_background_normal": { "hex": "{{colors.on_surface_variant.default.hex}}" },
+    "button_foreground_normal": { "hex": "{{colors.surface.default.hex}}" },
+    "button_background_active": { "hex": "{{colors.primary.default.hex}}" },
+    "button_foreground_active": { "hex": "{{colors.on_primary.default.hex}}" },
+
+    "header_background": { "hex": "{{colors.background.default.hex}}" },
+    "header_foreground": { "hex": "{{colors.outline.default.hex}}" },
+
+    "footer_background": { "hex": "{{colors.tertiary.default.hex}}" },
+    "footer_foreground": { "hex": "{{colors.on_tertiary.default.hex}}" },
+
+    "banner_background": { "hex": "{{colors.secondary.default.hex}}" },
+    "banner_foreground": { "hex": "{{colors.on_secondary.default.hex}}" },
+
+    "list_header_background": { "hex": "{{colors.surface_container.default.hex}}" },
+    "list_header_foreground": { "hex": "{{colors.tertiary.default.hex}}" },
+    "list_header_highlighted_background": { "hex": "{{colors.tertiary.default.hex}}" },
+    "list_header_highlighted_foreground": { "hex": "{{colors.on_tertiary.default.hex}}" },
+
+    "list_item_highlighted_background": { "hex": "{{colors.primary.default.hex}}" },
+    "list_item_highlighted_foreground": { "hex": "{{colors.on_primary.default.hex}}" },
+    "list_item_active_background": { "hex": "{{colors.surface_container_high.default.hex}}" },
+    "list_item_active_foreground": { "hex": "{{colors.tertiary.default.hex}}" },
+    "list_item_active_highlighted_background": { "hex": "{{colors.tertiary.default.hex}}" },
+    "list_item_active_highlighted_foreground": { "hex": "{{colors.on_tertiary.default.hex}}" }
+  }
+}
