@@ -14,6 +14,17 @@
         linuxOnly = pkgs.lib.optionals pkgs.stdenv.isLinux [
           pkgs.alsa-lib
           pkgs.libev
+          # standalone sd-bus implementation (extracted from systemd), used
+          # by the mpris plugin so it doesn't need to pull in full systemd
+          pkgs.basu
+        ];
+
+        # tells the mpris plugin's CMakeLists.txt to look for `basu` via
+        # pkg-config instead of `libsystemd`; harmless where basu isn't in
+        # buildInputs (the plugin's SDBUS pkg-config lookup just fails and
+        # the plugin is disabled)
+        linuxCmakeFlags = pkgs.lib.optionals pkgs.stdenv.isLinux [
+          "-DUSE_BASU=1"
         ];
 
         # shared with devShells.default below so the package and the dev
@@ -47,6 +58,7 @@
 
           nativeBuildInputs = nativeBuildInputs ++ [ pkgs.patchelf ];
           inherit buildInputs;
+          cmakeFlags = linuxCmakeFlags;
 
           # the project's own `postbuild` cmake target runs
           # script/patch-rpath.sh unconditionally to rewrite bin/{musikcube,
@@ -104,6 +116,8 @@
           # linking on Darwin -- irrelevant here on Linux, but harmless).
           shellHook = ''
             echo "musikcube dev shell: cmake $(cmake --version | head -n1 | awk '{print $3}'), $(cc --version | head -n1)"
+          '' + pkgs.lib.optionalString pkgs.stdenv.isLinux ''
+            echo "note: pass ${pkgs.lib.concatStringsSep " " linuxCmakeFlags} to cmake to enable the mpris plugin (basu is on the devShell path)"
           '';
         };
 
